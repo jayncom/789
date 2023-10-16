@@ -1,0 +1,186 @@
+CREATE DATABASE sv_db;
+
+USE sv_db;
+
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT,
+    gender VARCHAR(10),
+    address VARCHAR(255)
+);
+
+INSERT INTO students (name, age, gender, address)
+VALUES
+    ('John Doe', 22, 'Male', '123 Main St'),
+    ('Michael Smith', 20, 'Male', '456 Elm St'),
+    ('Robert Johnson', 21, 'Male', '789 Oak St'),
+    ('William Brown', 23, 'Male', '101 Pine St'),
+    ('James Wilson', 22, 'Male', '222 Maple St');
+    
+INSERT INTO students (name, age, gender, address)
+VALUES
+    ('Mary Johnson', 20, 'Female', '333 Birch St'),
+    ('Jennifer Davis', 21, 'Female', '444 Cedar St'),
+    ('Patricia Lee', 22, 'Female', '555 Redwood St'),
+    ('Linda Martinez', 23, 'Female', '666 Spruce St'),
+    ('Elizabeth Anderson', 22, 'Female', '777 Willow St');
+    
+SELECT * FROM students;    
+
+CREATE DATABASE IF NOT EXISTS customer_db;
+USE customer_db;
+
+CREATE TABLE IF NOT EXISTS customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(10),
+    name VARCHAR(100),
+    address VARCHAR(255)
+);
+
+INSERT INTO customer (code, name, address) VALUES ('C001', 'Alice Johnson', '123 Main St');
+INSERT INTO customer (code, name, address) VALUES ('C002', 'Bob Smith', '456 Elm St');
+INSERT INTO customer (code, name, address) VALUES ('C003', 'Charlie Davis', '789 Oak St');
+INSERT INTO customer (code, name, address) VALUES ('C004', 'David Lee', '890 Pine St');
+INSERT INTO customer (code, name, address) VALUES ('C005', 'Emily Brown', '456 Cedar St');
+INSERT INTO customer (code, name, address) VALUES ('C006', 'Frank Wilson', '321 Maple St');
+INSERT INTO customer (code, name, address) VALUES ('C007', 'Grace Turner', '543 Birch St');
+INSERT INTO customer (code, name, address) VALUES ('C008', 'Helen Martinez', '987 Oak St');
+INSERT INTO customer (code, name, address) VALUES ('C009', 'Ivy Harris', '654 Pine St');
+INSERT INTO customer (code, name, address) VALUES ('C010', 'Jack Evans', '876 Cedar St');
+
+
+CREATE DATABASE IF NOT EXISTS product_db;
+USE product_db;
+
+CREATE TABLE Product_Data (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductCode VARCHAR(10) NOT NULL,
+    ProductName VARCHAR(100) NOT NULL,
+    Unit VARCHAR(20) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL
+);
+
+INSERT INTO Product_Data (ProductCode, ProductName, Unit, Price)
+VALUES ('SP001', 'Product 1', 'Piece', 10.50),
+       ('SP002', 'Product 2', 'Piece', 15.75),
+       ('SP003', 'Product 3', 'Piece', 8.99),
+       ('SP004', 'Product 4', 'Piece', 12.30),
+       ('SP005', 'Product 5', 'Piece', 9.25),
+       ('SP006', 'Product 6', 'Piece', 7.80),
+       ('SP007', 'Product 7', 'Piece', 11.20),
+       ('SP008', 'Product 8', 'Piece', 14.00),
+       ('SP009', 'Product 9', 'Piece', 10.00),
+       ('SP010', 'Product 10', 'Piece', 18.50);
+
+SELECT * FROM Product_Data      
+     
+CREATE DATABASE IF NOT EXISTS student_db;    
+
+USE student_db;
+
+CREATE TABLE SV_Data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(20) NOT NULL,
+    student_name VARCHAR(100) NOT NULL,
+    class VARCHAR(50) NOT NULL
+);
+
+INSERT INTO SV_Data (student_id, student_name, class)
+VALUES 
+    ('SV001', 'Nguyễn Văn A', 'A1'),
+    ('SV002', 'Trần Thị B', 'A1'),
+    ('SV003', 'Lê Văn C', 'A2'),
+    ('SV004', 'Phạm Thị D', 'A2'),
+    ('SV005', 'Hoàng Văn E', 'A3'),
+    ('SV006', 'Nguyễn Thị F', 'A3'),
+    ('SV007', 'Trần Văn G', 'A4'),
+    ('SV008', 'Lê Thị H', 'A4'),
+    ('SV009', 'Phạm Văn I', 'A5'),
+    ('SV010', 'Hoàng Thị K', 'A5');
+
+SELECT * FROM SV_Data       
+
+USE student_db;
+
+CREATE TABLE `student_db`.`student` (
+  `student_code` VARCHAR(6) NOT NULL,
+  `student_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`student_code`));
+
+
+CREATE TABLE `student_db`.`subject` (
+  `subject_code` VARCHAR(6) NOT NULL,
+  `subject_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`subject_code`));
+
+
+CREATE TABLE `student_db`.`score` (
+  `idscore` INT,
+  `subject_code` VARCHAR(6) NULL,
+  `student_code` VARCHAR(6) NULL,
+  `subject_score` DOUBLE NULL,
+  PRIMARY KEY (`idscore`),
+  INDEX `student_idx` (`student_code` ASC) VISIBLE,
+  INDEX `subject_idx` (`subject_code` ASC) VISIBLE,
+
+CONSTRAINT `student`
+  FOREIGN KEY (`student_code`)
+  REFERENCES `student_db`.`student` (`student_code`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+  
+CONSTRAINT `subject`
+  FOREIGN KEY (`subject_code`)
+  REFERENCES `student_db`.`subject` (`subject_code`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION
+);	
+
+INSERT INTO student_db.student (student_code, student_name)
+VALUES
+  ('S001', 'John Doe'),
+  ('S002', 'Jane Smith'),
+  ('S003', 'Michael Johnson'),
+  ('S004', 'Emily Davis'),
+  ('S005', 'David Wilson');    
+  
+INSERT INTO student_db.subject (subject_code, subject_name)
+VALUES
+  ('SUB001', 'Mathematics'),
+  ('SUB002', 'Science'),
+  ('SUB003', 'History'),
+  ('SUB004', 'English'),
+  ('SUB005', 'Physics');
+  
+INSERT INTO student_db.score (idscore, subject_code, student_code, subject_score)
+VALUES
+  (1, 'SUB001', 'S001', 90.5),
+  (2, 'SUB002', 'S001', 85.0),
+  (3, 'SUB003', 'S001', 78.0),
+  (4, 'SUB004', 'S001', 88.0),
+  (5, 'SUB005', 'S001', 92.0),
+
+  (6, 'SUB001', 'S002', 87.0),
+  (7, 'SUB002', 'S002', 79.0),
+  (8, 'SUB003', 'S002', 80.0),
+  (9, 'SUB004', 'S002', 91.0),
+  (10, 'SUB005', 'S002', 88.5),
+
+  (11, 'SUB001', 'S003', 88.0),
+  (12, 'SUB002', 'S003', 83.0),
+  (13, 'SUB003', 'S003', 75.5),
+  (14, 'SUB004', 'S003', 89.0),
+  (15, 'SUB005', 'S003', 90.0),
+
+  (16, 'SUB001', 'S004', 85.5),
+  (17, 'SUB002', 'S004', 80.0),
+  (18, 'SUB003', 'S004', 76.0),
+  (19, 'SUB004', 'S004', 90.5),
+  (20, 'SUB005', 'S004', 87.0),
+
+  (21, 'SUB001', 'S005', 91.0),
+  (22, 'SUB002', 'S005', 88.5),
+  (23, 'SUB003', 'S005', 82.0),
+  (24, 'SUB004', 'S005', 94.0),
+  (25, 'SUB005', 'S005', 89.5);  
